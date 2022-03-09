@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  rabbit:
+    image: rabbitmq:latest
+    hostname: broker
+    ports:
+      - "5672:5672"
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "vitalijprokopenya"
+      POSTGRES_PASSWORD: "1234"
+    ports:
+      - "5430:5432"
+  producer:
+    image: rabbitp
+    environment:
+      rabbitHost: broker
+      rabbitPort: 5672
+  consumer:
+    image: rabbitc
+    environment:
+      POSTGRES_PORT: "5432"
+      POSTGRES_HOST: "postgres"
+      rabbitHost: broker
+      rabbitPort: 5672
